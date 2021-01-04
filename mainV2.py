@@ -40,6 +40,15 @@ for district, crimes in crimes_by_district.items():
 
 # PASO 3: Unique Crimes by City Block
 # CREAR EL CRIMES_BY_BLOCK in which crimes are listed by city block.
+csvfile = open('crime_sampler.csv', 'r')
+crimes_by_block = defaultdict(list)
+
+# Loop over a DictReader of the CSV file
+for row in csv.DictReader(csvfile):
+    # Pop the block from each row: block
+    block = row.pop('Block')
+    # Append the type of crime to the list for proper block in crimes_by_block
+    crimes_by_block[block].append(row.pop('Primary Type'))
 
 # Create a unique list of crimes for the first block: n_state_st_crimes
 n_state_st_crimes = set(crimes_by_block['001XX N STATE ST'])
